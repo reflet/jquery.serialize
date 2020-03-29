@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>JavaScriptテストページ</title>
+  <script src="./js/jquery-1.7.min.js"></script>
+  <script>
+    (function($) {
+      $(document).ready(function() {
+        function showValues() {
+          var query = $(":input").serialize();
+          var fields = $(":input").serializeArray();
+          var len = fields.length;
+
+          // selialize()
+          $("#results1").empty();
+          $("#results1").append(query);
+
+          // serializeArray()
+          $("#results2").empty();
+          for (var i = 0; i < len; ++i) {
+            console.log(fields[i]);
+            $("#results2").append('・' + fields[i].name + ': '+ fields[i].value + "<br>\n");
+          }
+          //$.each(fields, function(i, field) {
+          //  $("#results2").append('・' + field.name + ': '+ field.value + "<br>\n");
+          //});
+        }
+
+        // $(":checkbox, :radio").click(showValues);
+        // $("select").change(showValues);
+        // showValues();
+        $('#send').click(showValues);
+      });
+    })(jQuery);
+  </script>
+</head>
+<body>
+  <form>
+    <select name="single">
+      <option value="1">Single1</option>
+      <option value="2">Single2</option>
+    </select><br>
+    <select name="multi[]" multiple="multiple">
+      <option value="1" selected="selected">Multiple1</option>
+      <option value="2" >Multiple2</option>
+      <option value="3" selected="selected">Multiple3</option>
+    </select><br>
+    <br>
+
+    <input type="checkbox" name="check" value="1"/> check1<br>
+    <input type="checkbox" name="check" value="2" checked="checked"/> check2<br>
+    <br>
+
+    <input type="radio" name="radio" value="1" checked="checked"/> radio1<br>
+    <input type="radio" name="radio" value="2"/> radio2<br>
+    <br>
+    <input type="button" value="送信" id="send">
+  </form>
+  <p>
+    <b>【serialize()】</b><br>
+    <span id="results1"></span><br>
+    <br>
+    <b>【serializeArray()】</b><br>
+    <span id="results2"></span><br>
+  </p>
+</body>
+</html>
